@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/board.css">
+<script src="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/board.js"></script>
+<script src="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/html2canvas.js"></script>
+<link rel="icon" type="image/png" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/favicon-16x16.png" sizes="16x16">  
+<link rel="icon" type="image/png" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/favicon-32x32.png" sizes="32x32">  
+<link rel="icon" type="image/png" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/favicon-96x96.png" sizes="96x96">  
+
+</head>
+
+<body onload="layout();">
+
+
+
+<input value="" type="hidden" id="currentColor"></input>
+<div class="wrapper" id="wrapper" >
+<br/><br/>
+	<div class="header"  >
+		<div style="height:10px; width: 60px;float:left;" ></div>
+		Current Color:
+		<div style="height:10px; " > </div>
+	</div> 
+	<div class="header"  >
+		
+		<div style="height:20px; width: 90px;float:left;" ></div>
+		<div class="selected" id="curColor">   </div>
+		<div style="height:20px; width: 60px;" > </div>
+	</div> 
+<br/><br/>
+	<div class="column1"  >
+	
+		<div id="colors">
+		</div>
+	</div>
+	<div class="column2"  id="column2">
+		<div class="canvas" id="canvas">
+		</div>
+	</div>
+	<div class="column3"  id="column3">
+		<div onclick='draw(9,16);' style="box-shadow: 0px 0px 1px #333;padding-top:5px;float:left;width:48px; height:48px;text-indent:5px;">8"x 8"</div>
+		<div style="height:10px;float:right;width:200px;text-indent:30px;"></div>
+		<div onclick='draw(14,18);' style="box-shadow: 0px 0px 1px #333;padding-top:5px;float:left;width:78px; height:54px;text-indent:5px;">9"x 13"</div>
+		<div style="height:10px;float:right;width:200px;text-indent:30px;"></div>
+		<div onclick='draw(14,26);' style="box-shadow: 0px 0px 1px #333;padding-top:5px;float:left;width:90px; height:78px;text-indent:5px;">13"x 15"</div>
+		<div style="height:10px;float:right;width:200px;text-indent:30px;"></div>
+		<div onclick='draw(19,24);' style="box-shadow: 0px 0px 1px #333;padding-top:5px;float:left;width:108px;height:72px;text-indent:5px;">12"x 18"</div>
+		<div style="height:30px;float:right;width:200px;text-indent:30px;"></div>
+		<div onclick='draw(24,36);' style="box-shadow: 0px 0px 1px #333;padding-top:5px;float:left;width:144px;height:108px;text-indent:5px;">18"x 24"</div>
+		<div style="height:30px;float:right;width:200px;text-indent:30px;"></div>
+		<div onclick='screenshot();' style="box-shadow: 0px 0px 1px #333;background-color:#AAA; padding-top:5px;float:left;width:90px; height:30px;text-indent:5px;">Save Image</div>
+		
+	</div>
+</div> 
+
+  <!-- Script -->
+  <script type='text/javascript'>
+  function screenshot(){
+   html2canvas(document.getElementById('boardImage')).then(function(canvas) {
+    
+	// Export the canvas to its data URI representation
+     window.open().document.write('<img src="' + canvas.toDataURL() + '" />');
+   });
+  }
+  </script>
+  </body>
+

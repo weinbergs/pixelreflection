@@ -2,8 +2,9 @@
 function draw(){
 	var parsedUrl = new URL(window.location.href);
 
-	var size= parsedUrl.searchParams.get("size");
-
+	
+	var size= parsedUrl.searchParams.get("size") ;
+	size = size || 12;
 	var workingSize = Math.ceil(size/2);
 	var isOdd = size%2;
 	var totalPixels = size*size;
@@ -11,7 +12,7 @@ function draw(){
 	document.getElementById('canvas').style.width = 20*size+"px";
 	document.getElementById('canvas').style.height = 20*size+"px";
 	document.getElementById('column2').style.width = 20*size+"px";
-	document.getElementById('wrapper').style.width = 20*size+90+"px";
+	document.getElementById('wrapper').style.width = 20*size+90+380+"px";
 	document.getElementById('curColor').style.width = 20*size+30+"px";	
 
 
@@ -25,10 +26,10 @@ function draw(){
 	for (i = 1; i<totalPixels+1; i++){
 		if (i%size <= workingSize){
 			document.getElementById('canvas').innerHTML = document.getElementById('canvas').innerHTML +
-			"<div id='"+i+"' class='pixel'  onclick='color("+i+","+isOdd+","+size+");'></div>"}
+			"<div id='"+i+"' class='block'  onclick='color("+i+","+isOdd+","+size+");'></div>"}
 		else {
 			document.getElementById('canvas').innerHTML = document.getElementById('canvas').innerHTML +
-			"<div id='"+i+"' class='pixel' ></div>"}
+			"<div id='"+i+"' class='block' ></div>"}
 		
 	}
 
@@ -63,3 +64,4 @@ function setColor(strColor) {
 	document.getElementById("curColor").style.background = strColor;
 	
 }	
+
