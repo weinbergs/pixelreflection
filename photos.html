@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>S3 Photo Gallery</title>
+  <script src="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/photos.js"></script>
+<link rel="icon" type="image/png" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/favicon-16x16.png" sizes="16x16">  
+<link rel="icon" type="image/png" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/favicon-32x32.png" sizes="32x32">  
+<link rel="icon" type="image/png" href="http://pixelcoasters.s3-website-us-east-1.amazonaws.com/favicon-96x96.png" sizes="96x96">  
+
+</head>
+<body onload="getData();">
+<div style="width:550px; margin:0 auto;padding-top:100px;">
+	<div id="previous" style="width:100px;height:300px;float:left;display:table-cell; vertical-align:middle; text-align:center;"></div>
+	<div style="width:350px;height:300px;display:table-cell; vertical-align:middle; text-align:center;float:left;" id="currentImage">
+		
+	</div>
+	<div id="next" style="width:100px;height:300px;float:right;display:table-cell; vertical-align:middle; text-align:center;"></div>
+
+</div>
+<div id="iTracker" style="display:none;">0</div>
+</body>
+</html>
