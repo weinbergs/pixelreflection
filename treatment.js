@@ -10,7 +10,7 @@ function draw(){
 	var totalPixels = xWidth*yHeight;
 
 	document.getElementById('canvas').style.width = 50*xWidth+"px";
-	document.getElementById('canvas').style.height = 40*yHeight+"px";
+	document.getElementById('canvas').style.height = 45*yHeight+"px";
 	document.getElementById('column2').style.width = 50*xWidth+"px";
 	document.getElementById('wrapper').style.width = 50*xWidth+90+"px";
 
@@ -94,7 +94,27 @@ function draw(){
 						day =1;
 						month=9;
 						monthcolor 		= "";}
-					break;			}
+					break;			
+				case 9:
+					if (day ==31) {
+						day =1;
+						month=10;
+						monthcolor 		= lightblue;}
+					break;			
+				case 10:
+					if (day ==31) {
+						day =1;
+						month=11;
+						monthcolor 		= "";}
+					break;			
+				case 11:
+					if (day ==32) {
+						day =1;
+						month=12;
+						monthcolor 		= lightblue;}
+					break;			
+					
+					}
 
 			document.getElementById('canvas').innerHTML = document.getElementById('canvas').innerHTML +
 			"<div id='"+i+"' class='day' style=\" color:#999999; text-indent:2px;padding-top:2px;font-size:14px;background:"+ monthcolor+";\"  onclick='color("+i+")'>"+day+"</div>";
@@ -108,28 +128,34 @@ function color(x) {
 	document.getElementById('canvas').innerHTML ="";
     draw();
 	var y =0;
-	y	=	chemoCycle(x, 1);
-	x	=	chemoCycle(y, 2);
+	y	=	chemoICECycle(x, 1);
+	x	=	chemoICECycle(y, 2);
+			neupegen(x-11);
+			harvestCycle(x-6);
+	y	=	chemoPCycle(x, 3);
+			treatCodes(y-8, "pet");
+	x	=	chemoICECycle(y, 4);
 	
 //Stem Cell Transplant Process	
-	var padding = 21;
+	var padding = 2;
 	var stem = getNextMonday(x+padding);
-	
-	stem = harvestCycle(stem);
-	stem = stem+ 7
-	var nextMonday = getNextMonday(stem)+1;
 
-	stemCellCycle(nextMonday);
+
+	stemCellCycle(stem);
 	
 
 }
 
-function chemoCycle(x, iRound){
+function chemoICECycle(x, iRound){
 	for(i = 1; i<22; i++){
 		var iLocation = x+i-1;
-		document.getElementById(iLocation).innerHTML = document.getElementById(iLocation).innerHTML +"<div id=\"C-"+iLocation+"\" style=\"position:relative; color:#000000; text-indent:30px;font-size:16px;\">"+i+"</div>";
-		if(i<5){
-			treatCodes(iLocation, "c");}
+		document.getElementById(iLocation).innerHTML = document.getElementById(iLocation).innerHTML +"<div id=\"C-"+iLocation+"\" style=\"position:relative; color:#000000; text-indent:30px;font-size:16px;padding-bottom:3px;\">"+i+"</div>";
+		if(i<2){
+			treatCodes(iLocation, "co");}
+		if(1<i && i<5){
+			treatCodes(iLocation, "ci");
+			}
+
 		if(5<i && i<14){
 			treatCodes(iLocation, "n");}
 		}
@@ -137,6 +163,20 @@ function chemoCycle(x, iRound){
 	x=x+21;
 	return x;	
 }
+function chemoPCycle(x, iRound){
+	for(i = 1; i<22; i++){
+		var iLocation = x+i-1;
+		document.getElementById(iLocation).innerHTML = document.getElementById(iLocation).innerHTML +"<div id=\"C-"+iLocation+"\" style=\"position:relative; color:#000000; text-indent:30px;font-size:16px;padding-bottom:3px;\">"+i+"</div>";
+		if(i<2){
+			treatCodes(iLocation, "co");}
+//		if(5<i && i<14){
+//			treatCodes(iLocation, "n");}
+		}
+
+	x=x+21;
+	return x;	
+}
+
 function radiationCycle(stem){
 //Stem Cell Radiation
 	var i=1;
@@ -155,12 +195,27 @@ function radiationCycle(stem){
 	return stem1;
 }
 
+
+function neupegen(stem){
+//Stem Cell Radiation
+	var i=1;
+	var counter =0;
+
+	while(i<6 ){
+			stem1 = stem+i
+			treatCodes(stem1, "nu");
+		i=i+1;
+	}
+	return stem1;
+}
+
 function harvestCycle(stem){
 //Stem Cell Radiation
 	var i=1;
 	var counter =0;
-	var stem1 = stem+i;
+
 	while(i<3 ){
+			stem1 = stem+i
 			treatCodes(stem1, "h");
 		i=i+1;
 	}
@@ -200,19 +255,27 @@ function getNextMonday(x){
 
 	
 function treatCodes(x, ttype) {
-	var chemo 		="#ED2336";
+	var chemoOut	="#FC9821";
+	var chemoIn 	="#ED2336";
 	var radiation 	="#58C6EF";
+	var petScan		="#183677";
 	var neutropenic ="#F1EB38";
-	var stemcell 	="#ED2336";
-	var firstMonth	="#F1EB38";
+	var stemcell 	="#037570";
+	var firstMonth	="#0898AD";
 	var secondMonth	="#E69F3A";
 	var thirdMonth	="#A2EF8D";
 	var harvest 	="#F95001"; 
+	var neupegen 	="#60357D"; 
 	var divID 		="TD-"+x;
 	switch(ttype){
-				case "c":
+				case "ci":
 					divID 		="C-"+x;
-					document.getElementById(divID).style.background = chemo;
+					document.getElementById(divID).style.background = chemoIn;
+//					document.getElementById(x).innerHTML = document.getElementById(x).innerHTML +"<div style=\"position:relative; top:-5px; text-indent:15px;\">C</div>";
+					break;
+				case "co":
+					divID 		="C-"+x;
+					document.getElementById(divID).style.background = chemoOut;
 //					document.getElementById(x).innerHTML = document.getElementById(x).innerHTML +"<div style=\"position:relative; top:-5px; text-indent:15px;\">C</div>";
 					break;
 				case "r":
@@ -224,8 +287,20 @@ function treatCodes(x, ttype) {
 					document.getElementById(divID).style.background = neutropenic;
 //					document.getElementById(x).innerHTML = document.getElementById(x).innerHTML +"<div style=\"position:relative; top:-5px; text-indent:15px;\">N</div>";
 					break;
+				case "nu":
+					divID 		="C-"+x;
+					document.getElementById(divID).style.background = neupegen;
+//					document.getElementById(x).innerHTML = document.getElementById(x).innerHTML +"<div style=\"position:relative; top:-5px; text-indent:15px;\">H</div>";
+					break;
+				case "pet":
+					divID 		="C-"+x;
+					document.getElementById(divID).style.background = petScan;
+//					document.getElementById(x).innerHTML = document.getElementById(x).innerHTML +"<div style=\"position:relative; top:-5px; text-indent:15px;\">H</div>";
+					break;
+
 				case "h":
-					document.getElementById(x).style.background = harvest;
+					divID 		="C-"+x;
+					document.getElementById(divID).style.background = harvest;
 //					document.getElementById(x).innerHTML = document.getElementById(x).innerHTML +"<div style=\"position:relative; top:-5px; text-indent:15px;\">H</div>";
 					break;
 				case "s":
@@ -252,21 +327,43 @@ function treatCodes(x, ttype) {
 		
 	}
 function writeLegend(){
-	var inPatient 			="#ED2336";
+
 	var radiation 			="#58C6EF";
 	var neutropenic 		="#F1EB38";
 	var maybeNeutropenic	="#E69F3A";
 	var gtg					="#A2EF8D";
 	var harvest 			="#F95001"; 
+	var neupegen 			="#60357D"; 
+	var petScan				="#183677";
+	var chemoOut			="#FC9821";
+	var chemoIn 			="#ED2336";
+	var stemcell 			="#037570";
+	var firstMonth			="#0898AD";
 
 	var elementID = "column3";
 	document.getElementById(elementID).innerHTML = "";
-	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML +"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+inPatient+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">In Patient</div><br style=\"clear: left;\" />";
-	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML +"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+neutropenic+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Neutropenic</div><br style=\"clear: left;\" />";
-	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML +"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+harvest+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Stem Cell Harvest (maybe 2 days) </div><br style=\"clear: left;\" />";
-	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML +"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+radiation+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Radiation</div><br style=\"clear: left;\" />";
-	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML +"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+maybeNeutropenic+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Potentially Neutropenic</div><br style=\"clear: left;\" />";
-	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML +"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+gtg+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Hopefully Good To Go </div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+chemoIn+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">In Patient Chemo</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+chemoOut+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Out Patient Chemo</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+neutropenic+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Neutropenic</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+neupegen+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Neupegen shots (up to 9 days) </div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+harvest+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Stem Cell Harvest (maybe 3 days) </div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+petScan+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">PET Scan</div><br style=\"clear: left;\" />";
+	//document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+	//	+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+radiation+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Radiation</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+stemcell+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Stem Cell Transplant Process</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+firstMonth+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">High Immuno Risk</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+maybeNeutropenic+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Potentially Neutropenic</div><br style=\"clear: left;\" />";
+	document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML 
+		+"<div id=\"color\" style=\"float:left;height:30px;width:30px;vertical-align: middle;background-color:"+gtg+";\"></div><div style=\"padding-top:5px;float:left;width:290px;text-indent:30px;\">Hopefully Good To Go </div><br style=\"clear: left;\" />";
 
 	}
 
